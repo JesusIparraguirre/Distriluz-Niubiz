@@ -1,0 +1,120 @@
+<mat-toolbar class="bg-secondary-custom">
+  <button mat-icon-button [style.visibility]="btnVisible ? 'visible': 'hidden'"  class="color-light-custom" (click)="back()">
+    <mat-icon>arrow_back</mat-icon>
+  </button>
+  <span class="example-spacer"></span>
+</mat-toolbar>
+
+<mat-card class="card-content z-depth-4">
+  <mat-card-content>
+    <div class="row ml-1 mr-1">
+
+      <div class="col-12 col-sm-4 col-md-4 col-lg-5 s12 m3">
+        <mat-card-title class="custom margin-top">Detalle servicio</mat-card-title>
+        <h2 class="margin-top color-primary-custom">N° de Suministro</h2>
+        <span>{{suministro.idNroServicio}}</span>
+        <h2 class="margin-top color-primary-custom">Propietario</h2>
+        <span>{{suministro.nombreNroServicio}}</span>
+        <h2 class="margin-top color-primary-custom">Dirección</h2>
+        <span>{{suministro.direccion}}</span>
+        <h2 class="margin-top color-primary-custom">Deuda total</h2>
+        <span>S/. {{deudatotal.toFixed(2)}}</span>
+      </div>
+
+      <div class="col-12 co-sm-8 col-md-8 col-lg-7 s12 m9 bg-suministro">
+        <mat-vertical-stepper [linear]="isLinear" #stepper class="bg-suministro">
+          <mat-step >
+            <form>
+              <mat-spinner class="custom-spinner margin-top margin-bottom" diameter="50" *ngIf="cargando;"></mat-spinner>
+              <h2 class="color-danger-custom" *ngIf="error;">Error no se encontró deudas</h2>
+              <ng-template matStepLabel>Seleccione recibos a cancelar</ng-template>
+              <br />
+              <mat-card class="margin-bottom" *ngFor="let deuda of deudas; index as i" >
+                <mat-checkbox class="example-margin" (change)="eventCheck($event, deuda.saldo);eventDisabled($event)" [disabled]="isLoading"  [disabled]="!deuda.disabled" id="{{deuda.mes}}">
+                  <div class="row same margin-bottom-0">
+                      <div class="col-6 col-sm-5 col-lg-6 left-align no-padding">
+                        <h2 class="color-dark-custom no-margin fuente-h2">{{ deuda.nombreMes }}</h2>
+                        <span>Vence: {{ deuda.fechaVencimiento.substr(0, 10) }}</span>
+                      </div>
+                      <div class="col-6 col-sm-5 col-lg-6 s12 m9 same right-align no-padding">
+                        <h2 class=" color-primary-custom fuente-h2">S/. {{ deuda.saldo }}</h2>
+                      </div>
+                  </div>
+                </mat-checkbox>
+              </mat-card>
+              <div>
+                <!-- (change)="eventTerminos($event)" -->
+                <!-- [disabled]="!terminos" -->
+                <mat-checkbox class="fuente-h2" [disabled]="isLoading" (change)="eventTerminos($event)"><p class="fuente-terminos">Acepta los <a (click)="openTerminos()" href="javascript:void(0)">términos y condiciones</a></p></mat-checkbox>
+                <button mat-button [disabled]="!formpago" [style.visibility]="!isLoading ? 'visible': 'hidden'" (click)="pago(stepper,suministro.idNroServicio,totalpago)">Siguiente</button>
+                <div class="row no-margin no-padding">
+                  <div class="col-5 col-md-5 col-lg-5"></div>
+                  <div class="col-2 col-md-2 col-lg-2">
+                    <mat-spinner class="custom-spinner display-inline" diameter="25" [style.visibility]="isLoading ? 'visible': 'hidden'"></mat-spinner>
+                  </div>
+                  <div class="col-5 col-md-5 col-lg-5"></div>
+                </div>
+              </div>
+            </form>
+          </mat-step>
+          <mat-step>
+            <form>
+              <ng-template matStepLabel>Detalle de pago</ng-template>
+              <div class="left-align margin-bottom">
+                <h2 class="color-primary-custom">Nro de pedido: <b>{{nropedido}}</b></h2>
+                <h2 class="margin-top color-primary-custom">Monto total: <b>S/. {{totalpago}}</b></h2>
+                <h2 class="margin-top color-primary-custom">Periodos: <b>{{nroperiodos}}</b></h2>
+                <h2 class="margin-top color-primary-custom">Fecha y hora: <b>{{fecha}}</b></h2>
+              </div>
+              <!-- <mat-checkbox (change)="eventTerminos($event)"  [disabled]="formpago">*Acepta los términos y condiciones</mat-checkbox> -->
+              <div>
+                <div class="row no-margin no-padding">
+                  <div class="col-5 col-md-5 col-lg-5"></div>
+                  <div class="col-2 col-md-2 col-lg-2">
+                    <mat-spinner class="custom-spinner display-inline" [style.visibility]="loadvisa ? 'visible': 'hidden'" diameter="25" id="loadvisa"></mat-spinner>
+                  </div>
+                  <div class="col-5 col-md-5 col-lg-5"></div>
+                </div>
+                <div class="row mt-2">
+                  <div class="btn_error left-align no-padding" id="btnPago">
+                  </div>
+                  <div class="division"></div>
+                  <div class="btn-error no-padding" >
+                    <button type="button" style="height: 44px;" (click)="cancelarPedido()" [style.visibility]="pagovisa ? 'visible': 'hidden'" class="btn  btn-block bg-danger-custom color-light-custom">Cancelar</button>
+                  </div>
+                </div>
+                <button mat-button [style.visibility]="pagovisa ? 'visible': 'hidden'" (click)="btnAtras()">Atras</button>
+              </div>
+            </form>
+          </mat-step>
+        </mat-vertical-stepper>
+      </div>
+
+    </div>
+  </mat-card-content>
+</mat-card>
+
+<div class="col-12 no-margin no-padding">
+  <div class="row">
+    <div class="col-0 col-sm-0 col-md-3  col-xl-6"></div>
+    <div class="col-12 col-sm-12 col-md-9 col-xl-6 mt-3 right-align no-margin no-padding">
+      <div class="row float-right">
+        <div class="col-2 no-padding mr-1">
+          <img class="img-visa" src="assets/image/american.png">
+        </div>
+        <div class="col-2 no-padding mr-1">
+          <img class="img-visa no-padding" src="assets/image/diners.png">
+        </div>
+        <div class="col-2 no-padding ">
+          <img class="img-visa" src="assets/image/mastercard2.png">
+        </div>
+        <div class="col-2 no-padding mr-2">
+          <img class="img-visa mt-2" src="assets/image/logo-visa.png">
+        </div>
+        <div class="col-3 left-align no-padding">
+          <p class="no-margin color-white-custom fuente-visa">Esta tienda está autorizada por Visa para realizar transacciones electrónicas.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

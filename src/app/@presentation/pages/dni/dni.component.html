@@ -1,0 +1,59 @@
+<mat-toolbar class="bg-secondary-custom">
+  <button mat-icon-button class="color-light-custom" [routerLink]="['/pages/pago']">
+    <mat-icon>arrow_back</mat-icon>
+  </button>
+  <span class="example-spacer"></span>
+  <button mat-icon-button class="color-light-custom"  [routerLink]="['/auth/login']">
+    <mat-icon>account_circle</mat-icon>
+  </button>
+</mat-toolbar>
+
+
+<mat-card class="card-content">
+  <mat-card-content class="center-align">
+    <mat-card-title class="color-dark-custom">Pago en línea</mat-card-title>
+    <p class="color-dark-custom">Ingrese su número de DNI para poder obtener sus suministros.</p>
+    <form role="form" class="center-align" [formGroup]="contactForm" (ngSubmit)="onSubmit()">
+        <div class="row center-grid">
+            <div class="col-sm-12 col-xl-5 col-lg-5 col-md-5 s12 m6 right-align">
+                <div class="form-group">
+                    <mat-form-field appearance="fill" class="full-width" [ngStyle]="{'width': mobile ? '100%' : 'auto' }">
+                        <mat-label>DNI</mat-label>
+                        <input matInput type="text" maxlength="8" placeholder="Ingrese su DNI" formControlName="dni" maxlength="8">
+                        <mat-error *ngIf="f.dni.invalid">{{getDniErrorMessage()}}</mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="col-sm-12 col-xl-2 col-lg-3 col-md-3 s12 m3 center-align">
+              <button type="submit" class=" btn bg-success-custom color-light-custom btn-lg btn-block" [disabled]="!contactForm.valid" [style.visibility]="isLoading ? 'hidden': 'visible'">Buscar</button>
+              <mat-spinner class="custom-spinner mt-2" diameter="25" [style.visibility]="isLoading ? 'visible': 'hidden'"></mat-spinner>
+            </div>
+            <div class="col-0 col-sm-0 col-md-2 col-lg-2 col-xl-2"></div>
+        </div>
+    </form>
+  </mat-card-content>
+</mat-card>
+<div class="col-12 no-margin no-padding">
+  <div class="row">
+    <div class="col-0 col-sm-0 col-md-3  col-xl-6"></div>
+    <div class="col-12 col-sm-12 col-md-9 col-xl-6 mt-3 right-align no-margin no-padding">
+      <div class="row float-right">
+        <div class="col-2 no-padding mr-1">
+          <img class="img-visa" src="assets/image/american.png">
+        </div>
+        <div class="col-2 no-padding mr-1">
+          <img class="img-visa no-padding" src="assets/image/diners.png">
+        </div>
+        <div class="col-2 no-padding ">
+          <img class="img-visa" src="assets/image/mastercard2.png">
+        </div>
+        <div class="col-2 no-padding mr-2">
+          <img class="img-visa mt-2" src="assets/image/logo-visa.png">
+        </div>
+        <div class="col-3 left-align no-padding">
+          <p class="no-margin color-white-custom fuente-visa">Esta tienda está autorizada por Visa para realizar transacciones electrónicas.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

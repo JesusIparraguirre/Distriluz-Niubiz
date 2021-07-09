@@ -1,0 +1,39 @@
+<mat-toolbar class="bg-secondary-custom">
+  <button mat-icon-button class="color-light-custom" [routerLink]="['/pages/pago']">
+    <mat-icon>arrow_back</mat-icon>
+  </button>
+  <span class="example-spacer"></span>
+  <!-- <button mat-icon-button class="color-light-custom"  [routerLink]="['/auth/login']">
+    <mat-icon>power_settings_new</mat-icon>
+  </button> -->
+</mat-toolbar>
+
+<mat-card class="card-content">
+    <mat-card-content class="center-align">
+      <mat-card-title class="color-dark-custom">Inicie Sesión</mat-card-title>
+      <form role="form" class="center-align" [formGroup]="contactForm" (ngSubmit)="onSubmit()">
+          <div class="column center-grid">
+              <div class="col-12 s12 m6 ">
+                  <div class="form-group">
+                      <mat-form-field appearance="fill" class="full-width" [ngStyle]="{'width': mobile ? '100%' : 'auto' }">
+                          <mat-label>Usuario</mat-label>
+                          <input matInput type="text" placeholder="Ingrese usuario" formControlName="user">
+                          <mat-error *ngIf="f.user.invalid">{{getUserErrorMessage()}}</mat-error>
+                      </mat-form-field>
+                  </div>
+              </div>
+              <div class="col-12 s12 m6 ">
+                  <div class="form-group">
+                      <mat-form-field appearance="fill" class="full-width" [ngStyle]="{'width': mobile ? '100%' : 'auto' }">
+                          <mat-label>Contraseña</mat-label>
+                          <input matInput type="password" placeholder="Ingrese contraseña" formControlName="pass">
+                          <mat-error *ngIf="f.pass.invalid">{{getPassErrorMessage()}}</mat-error>
+                      </mat-form-field>
+                  </div>
+              </div>
+          </div>
+          <button mat-raised-button class="margin-top-20 bg-success-custom color-light-custom" [disabled]="!contactForm.valid" [style.visibility]="isLoading ? 'hidden': 'visible'">Iniciar Sesión</button>
+          <mat-spinner class="custom-spinner" diameter="25" [style.visibility]="isLoading ? 'visible': 'hidden'"></mat-spinner>
+      </form>
+    </mat-card-content>
+  </mat-card>

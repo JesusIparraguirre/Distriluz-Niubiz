@@ -1,0 +1,161 @@
+<mat-toolbar class="bg-secondary-custom">
+  <span class="example-spacer"></span>
+  <button mat-icon-button [style.visibility]="!isLoading ? 'visible': 'hidden'" class="color-light-custom"  [routerLink]="['/pages/pago']">
+    <mat-icon>login</mat-icon>
+  </button>
+</mat-toolbar>
+
+<mat-card class="card-content">
+    <mat-card-content class="center-align no-padding">
+
+    <mat-card-title class="color-primary-custom display-none"  id="pago_titulo">
+      <h2 class="fuente-h2-titulo">PAGO REALIZADO</h2>
+    </mat-card-title>
+    <mat-card-title class="display-none"  id="pago_titulo_error">
+      <h2 class="fuente-h2-titulo color-danger-custom">ERROR DE PAGO</h2>
+    </mat-card-title>
+
+    <div class="container display-none" id="pago_error_autorizacion">
+      <div class="row" style="padding: 0px;margin: 0px;">
+        <div class="col-12">
+        <h2 class="color-dark-custom fuente-h2">ERROR DE AUTORIZACION DE PAGO EN VISA</h2>
+        </div>
+        <div class="col-12">
+          <h2 class="color-dark-custom fuente-h2">Pago de Visa no se realizo correctamente</h2>
+        </div>
+      </div>
+    </div>
+
+    <div class="container display-none" id="pago_error_distriluz">
+      <div class="row" style="padding: 0px;margin: 0px;">
+        <div class="col-12">
+          <h2 class="color-dark-custom fuente-h2">ERROR DE PAGO EN DISTRILUZ</h2>
+        </div>
+        <div class="col-12">
+          <h2 class="color-dark-custom fuente-h2">Pago de Visa se realizo correctamente, pero hubo un error. Contacte con el administrador</h2>
+        </div>
+      </div>
+    </div>
+
+    <div class="container display-none"  id="pago_resumen">
+    <div class="row" style="padding: 0px;margin: 0px;">
+      <h3 class="fuente-h3">A continuación se muestra el detalle del pago realizado</h3>
+    </div>
+    <div class="row" style="padding: 0px;margin: 0px;">
+      <div class="col-6 right-align no-padding">
+      <h2 class="fuente-h2">Número de pedido:</h2>
+      </div>
+      <div class="col-6 left-align no-padding">
+        <h2 class="color-primary-custom fuente-h2">{{pedidoVisa}}</h2>
+      </div>
+    </div>
+    <div class="row" style="padding: 0px;margin: 0px;">
+      <div class="col-6 right-align no-padding">
+      <h2 class="fuente-h2">Número de tarjeta:</h2>
+      </div>
+      <div class="col-6 left-align no-padding">
+        <h2 class="color-primary-custom fuente-h2">{{tarjeta}}</h2>
+      </div>
+    </div>
+    <div class="row" style="padding: 0px;margin: 0px;">
+      <div class="col-6 right-align no-padding">
+      <h2 class="fuente-h2">Fecha y hora de autorización:</h2>
+      </div>
+      <div class="col-6 left-align no-padding">
+        <h2 class="color-primary-custom fuente-h2">{{fecha}}</h2>
+      </div>
+    </div>
+    <div class="row" style="padding: 0px;margin: 0px;">
+      <div class="col-6 right-align no-padding">
+      <h2 class="fuente-h2">Importe autorizado:</h2>
+      </div>
+      <div class="col-6 left-align no-padding">
+        <h2 class="color-primary-custom fuente-h2">S/. {{montoVisa}}</h2>
+      </div>
+    </div>
+    <div class="row" style="padding: 0px;margin: 0px;">
+      <div class="col-6 right-align no-padding">
+      <h2 class="fuente-h2">Moneda autorizada:</h2>
+      </div>
+      <div class="col-6 left-align no-padding">
+        <h2 class="color-primary-custom fuente-h2">{{moneda}}</h2>
+      </div>
+    </div>
+    <div class="row" style="padding: 0px;margin: 0px;">
+      <div class="col-6 right-align no-padding">
+      <h2 class="fuente-h2">Descripción de la transacción:</h2>
+      </div>
+      <div class="col-6 left-align no-padding">
+        <h2 class="color-primary-custom fuente-h2">Pago del suministro {{nrosuministro}}, Periodos: {{periodos}}</h2>
+      </div>
+    </div>
+    <div class="row" style="padding: 0px;margin: 0px;">
+      <div class="col-6 right-align no-padding">
+      <h2 class="fuente-h2">Código de autorización:</h2>
+      </div>
+      <div class="col-6 left-align no-padding">
+        <h2 class="color-primary-custom fuente-h2">{{codigoautorizacion}}</h2>
+      </div>
+    </div>
+    <div class="row" style="padding: 0px;margin: 0px;">
+      <div class="col-6 right-align no-padding">
+      <h2 class="fuente-h2">Descripción de la autorización:</h2>
+      </div>
+      <div class="col-6 left-align no-padding">
+        <h2 class="color-primary-custom fuente-h2">{{descripcion}}</h2>
+      </div>
+    </div>
+    <div class="row" style="padding: 0px;margin: 0px;">
+      <div class="col-6 right-align no-padding">
+      <h2 class="fuente-h2">Nombre del comercio:</h2>
+      </div>
+      <div class="col-6 left-align no-padding">
+        <h2 class="color-primary-custom fuente-h2">{{nombre_empresa}}</h2>
+      </div>
+    </div>
+    <div class="row" style="padding: 0px;margin: 0px;">
+      <div class="col-6 right-align no-padding">
+      <h2 class="fuente-h2">Dirección del comercio:</h2>
+      </div>
+      <div class="col-6 left-align no-padding">
+        <h2 class="color-primary-custom fuente-h2">{{direccion_empresa}}</h2>
+      </div>
+    </div>
+  </div>
+
+<div class="col-12" id="div_salir">
+  <button mat-raised-button class="margin-top-20 bg-danger-custom color-light-custom ml-1"  [routerLink]="['/pages/pago']" [style.visibility]="!btn_error ? 'hidden': 'visible'">Salir</button>
+</div>
+<h2 [style.visibility]="isLoading ? 'visible': 'hidden'" id="procesando_pago">PROCESANDO PAGO</h2>
+  <mat-spinner class="custom-spinner mt-2" diameter="25" [style.visibility]="isLoading ? 'visible': 'hidden'"></mat-spinner>
+<div class="col-12 pb-2" id="div_pagado">
+<button mat-raised-button class="margin-top-20 bg-success-custom color-light-custom mr-1"  (click)="generatePdf()" [style.visibility]="!btn_ok ? 'hidden': 'visible'">Descargue su recibo</button>
+<button mat-raised-button class="margin-top-20 bg-danger-custom color-light-custom ml-1"  [routerLink]="['/pages/pago']" [style.visibility]="!btn_ok ? 'hidden': 'visible'">Salir</button>
+</div>
+</mat-card-content>
+</mat-card>
+
+<div class="col-12 no-margin no-padding">
+  <div class="row">
+    <div class="col-0 col-sm-0 col-md-3  col-xl-6"></div>
+    <div class="col-12 col-sm-12 col-md-9 col-xl-6 mt-3 right-align no-margin no-padding">
+      <div class="row float-right">
+        <div class="col-2 no-padding mr-1">
+          <img class="img-visa" src="assets/image/american.png">
+        </div>
+        <div class="col-2 no-padding mr-1">
+          <img class="img-visa no-padding" src="assets/image/diners.png">
+        </div>
+        <div class="col-2 no-padding ">
+          <img class="img-visa" src="assets/image/mastercard2.png">
+        </div>
+        <div class="col-2 no-padding mr-2">
+          <img class="img-visa mt-2" src="assets/image/logo-visa.png">
+        </div>
+        <div class="col-3 left-align no-padding">
+          <p class="no-margin color-white-custom fuente-visa">Esta tienda está autorizada por Visa para realizar transacciones electrónicas.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

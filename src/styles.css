@@ -1,0 +1,83 @@
+/* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+@media only screen and (min-width: 551px) {
+  .padding-top-100{
+    padding-top: 100px;
+  }
+}
+@media only screen and (max-width: 550px) {
+  .padding-top-100{
+    padding-top: 20px;
+  }
+}
+.bg-primary-custom {
+  background: #003A70
+}
+
+.color-primary-custom {
+  color: #003A70
+}
+
+
+.bg-secondary-custom {
+  background: #0172CE
+}
+
+.bg-success-custom {
+  background: #43B02A;
+}
+
+.bg-danger-custom {
+  background: #d92550;
+}
+
+.color-success-custom {
+  color: #43B02A;
+}
+
+.bg-suministro-custom {
+  background: #FBFCFC;
+}
+
+
+.color-info-custom {
+  color: #16aaff
+}
+
+.color-warning-custom {
+  color: #f7b924
+}
+
+.color-danger-custom {
+  color: #d92550
+}
+
+.color-light-custom {
+  color: #eee
+}
+
+.color-dark-custom {
+  color: #343a40
+}
+
+.color-focus-custom {
+  color: #444054
+}
+
+.color-alternate-custom {
+  color: #794c8a
+}
+
+.color-white-custom {
+  color: white
+}
+
+/* CUSTOM SPINNER */
+
+.custom-spinner {
+  margin-left: auto;
+  margin-right: auto;
+}

@@ -1,0 +1,79 @@
+<mat-toolbar class="bg-secondary-custom">
+  <span class="example-spacer"></span>
+  <button mat-icon-button class="color-light-custom"  [routerLink]="['/auth/login']">
+    <mat-icon>power_settings_new</mat-icon>
+  </button>
+</mat-toolbar>
+
+<mat-card class="card-content mb-5">
+    <mat-card-content class="">
+      <mat-card-title class="color-dark-custom mb-2  padding-48 center-align">
+          Lista de pagos no procesados
+        <mat-spinner class="custom-spinner mt-2" diameter="25" [style.visibility]="isLoading ? 'visible': 'hidden'"></mat-spinner>
+      </mat-card-title>
+
+    <h2 class="color-danger-custom" *ngIf="no_data;">No hay datos disponibles</h2>
+    <div *ngFor="let pago of lista | paginate: {itemsPerPage: 7, currentPage: page}" class="blanco rounded-div lista-afiliados-container" >
+      <div class="list-group list-group-horizontal-lg list-group-horizontal-md lista-afiliados ml-2">
+        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 col-12 custom-no-padding">
+            <div class="row align-items-center h-100 custom-no-margin">
+                <div class="col-xl-6 col-lg-7 col-md-7 col-sm-4 col-4 opaco custom-no-padding">
+                    <span class="cabecera-grilla">N° Pedido:</span>
+                </div>
+                <div class="col-xl-6 col-lg-5 col-md-5 col-sm-7 col-8 custom-no-padding left-align">
+                    <span class="fila-grilla">{{pago.nroPedido}}</span>
+                </div>
+            </div>
+          </div>
+          <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-12 custom-no-padding">
+            <div class="row align-items-center h-100 custom-no-margin">
+                <div class="col-xl-6 col-lg-7 col-md-7 col-sm-4 col-4 opaco custom-no-padding">
+                    <span class="cabecera-grilla">N° Suministro:</span>
+                </div>
+                <div class="col-xl-6 col-lg-5 col-md-5 col-sm-7 col-8 custom-no-padding left-align">
+                    <span class="fila-grilla">{{pago.idNroServicio}}</span>
+                </div>
+            </div>
+          </div>
+        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 col-12 custom-no-padding" >
+          <div class="row align-items-center h-100 custom-no-margin">
+              <div class="col-xl-6 col-lg-6 col-md-7 col-sm-4 col-4 opaco custom-no-padding">
+                  <span class="cabecera-grilla">Importe:</span>
+              </div>
+              <div class="col-xl-6 col-lg-6 col-md-5 col-sm-7 col-8 custom-no-padding left-align">
+                  <span class="fila-grilla">S/. {{pago.importe}}</span>
+              </div>
+          </div>
+        </div>
+        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-12 custom-no-padding" style="padding: 0px;">
+          <div class="row align-items-center h-100 custom-no-margin">
+              <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4 opaco custom-no-padding">
+                  <span class="cabecera-grilla">Motivo:</span>
+              </div>
+              <div class="col-xl-8 col-lg-7 col-md-8 col-sm-7 col-8 custom-no-padding left-align">
+                  <span class="fila-grilla">{{pago.mensaje}}</span>
+              </div>
+          </div>
+        </div>
+        <div class=" last col-xl-2 col-lg-2 col-md-2 col-sm-12 col-12 custom-no-padding align-middle" >
+            <button type="button" (click)="pagoNoProcesado(pago.nroPedido)" class="btn btn-block bg-success-custom text-white color-light-custom" type="submit" size="large" shape="round">
+              <span>Realizar pago</span>
+            </button>
+        </div>
+      </div>
+    </div>
+
+
+    <!--Paginacion-->
+    <div class="mt-2 left-align">
+      <pagination-controls
+      (pageChange)="page = $event"
+      previousLabel=""
+      nextLabel="">
+
+    </pagination-controls>
+    </div>
+
+  </mat-card-content>
+  </mat-card>
+

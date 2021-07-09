@@ -1,0 +1,81 @@
+<mat-toolbar class="bg-secondary-custom">
+  <button mat-icon-button class="color-light-custom" [routerLink]="['/pages/dni']">
+    <mat-icon>arrow_back</mat-icon>
+  </button>
+  <span class="example-spacer"></span>
+</mat-toolbar>
+
+<mat-card class="card-content">
+  <mat-card-content>
+		<div class="row ml-1 mr-1">
+
+			<div class="col-12 col-sm-4 col-md-4 col-lg-6 s12 m3 margin-bottom">
+        <mat-card-title class="custom margin-top">Bienvenido</mat-card-title>
+        <h2 class="margin-top color-primary-custom">Nombre</h2>
+        <span>{{nombre}}</span>
+        <h2 class="margin-top color-primary-custom">DNI</h2>
+        <span>{{dni}}</span>
+      </div>
+
+			<div class="col-12 co-sm-8 col-md-8 col-lg-6 s12 m9 bg-suministro">
+        <p class="margin-top mb-3 color-primary-custom">Seleccione el suministro que desee pagar</p>
+        <div class="row color-light">
+          <mat-spinner class="custom-spinner margin-top margin-bottom" diameter="50" *ngIf="suministros.length == 0; else elseBlock"></mat-spinner>
+          <ng-template #elseBlock>
+            <div class="col-12 s12 m4" *ngFor="let suministro of suministros">
+              <mat-card>
+                <mat-card-content>
+                  <div class="col-12">
+                  <h2 class="color-primary-custom">N° de Suministro</h2>
+                  <span>{{suministro.idNroServicio}}</span>
+                  <div class="row margin-top">
+                    <div class="col s12 ">
+                      <mat-icon class="color-success-custom">domain</mat-icon><span class="aligned-with-icon">{{suministro.nombreEmpresa}}</span>
+                    </div>
+                  </div>
+                  <div class="row margin-bottom">
+                    <div class="col s12">
+                      <mat-icon class="color-success-custom">map</mat-icon><span class="aligned-with-icon">{{suministro.direccion}}</span>
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-12 s12 center-align">
+                      <button mat-button class="color-success-custom margin-top-12" (click)="irProcesoPago(suministro.idNroServicio)">Mostrar Recibos</button>
+                    </div>
+                  </div>
+                  </div>
+                </mat-card-content>
+              </mat-card>
+            </div>
+          </ng-template>
+        </div>
+      </div>
+		</div>
+  </mat-card-content>
+</mat-card>
+
+<div class="col-12 no-margin no-padding">
+  <div class="row">
+    <div class="col-0 col-sm-0 col-md-3  col-xl-6"></div>
+    <div class="col-12 col-sm-12 col-md-9 col-xl-6 mt-3 right-align no-margin no-padding">
+      <div class="row float-right">
+        <div class="col-2 no-padding mr-1">
+          <img class="img-visa" src="assets/image/american.png">
+        </div>
+        <div class="col-2 no-padding mr-1">
+          <img class="img-visa no-padding" src="assets/image/diners.png">
+        </div>
+        <div class="col-2 no-padding ">
+          <img class="img-visa" src="assets/image/mastercard2.png">
+        </div>
+        <div class="col-2 no-padding mr-2">
+          <img class="img-visa mt-2" src="assets/image/logo-visa.png">
+        </div>
+        <div class="col-3 left-align no-padding">
+          <p class="no-margin color-white-custom fuente-visa">Esta tienda está autorizada por Visa para realizar transacciones electrónicas.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
